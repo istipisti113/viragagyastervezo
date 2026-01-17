@@ -10,53 +10,62 @@ pub struct RequestBuilder {
     method: Option<String>,
     headers: Vec<(String, String)>,
     body: Option<String>,
+    table: Option<String>
 }
 
 impl RequestBuilder {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self::default()
     }
-    
-    fn url(mut self, url: &str) -> Self {
+
+    pub fn url(mut self, url: &str) -> Self {
         self.url = Some(url.to_string());
         self
     }
-    
-    fn method(mut self, method: &str) -> Self {
+
+    pub fn method(mut self, method: &str) -> Self {
         self.method = Some(method.to_string());
         self
     }
-    
-    fn header(mut self, key: &str, value: &str) -> Self {
+
+    pub fn header(mut self, key: &str, value: &str) -> Self {
         self.headers.push((key.to_string(), value.to_string()));
         self
     }
-    
-    fn body(mut self, body: &str) -> Self {
+
+    pub fn body(mut self, body: &str) -> Self {
         self.body = Some(body.to_string());
         self
     }
 
-    fn param(mut self, param: &str) -> Self {
+    pub fn table(mut self, table: &str) -> Self {
+        self.table = Some(table.to_string());
+        self
+    }
+
+    pub fn param(mut self, param: &str) -> Self {
         self.param.push(param.to_owned());
         self
     }
-    
-    fn run(self) -> String {
-        let url = self.url.ok_or("URL is required");
+
+    pub fn run(self) -> String {
+        let url = self.url.ok_or("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1");
         let method = self.method.unwrap_or_else(|| "GET".to_string());
 
         let mut params: Vec<String> = vec![];
         let key = env::var("apikey").unwrap();
+        params.push(url.unwrap().to_string());
         params.push("-H".to_string());
         params.push("apikey: ".to_owned()+&key);
+
         for p in self.param {
             let mut splitted = p.split("=");
             params.push("-d".to_string());
-            params.push(format!("{}=eq.{}",splitted.nth(0).unwrap(), splitted.nth(1).unwrap()))
+            params.push(format!("{}=eq.{}",splitted.next().unwrap(), splitted.next().unwrap()))
         }
 
-        let mut command = Command::new("curl");
+        //let mut command = Command::new("curl");
+        let mut command = Command::new("echo");
         command.args(params);
         let output = command.output().unwrap();
         match output.status.success() {

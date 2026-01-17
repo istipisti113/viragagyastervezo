@@ -22,8 +22,8 @@ async fn main() {
     let mut novenyek: Vec<noveny> = vec![];
     let home = warp::path::end().map(|| warp::reply::html(fs::read_to_string("html/index.html").unwrap()));
 
-    println!("{}", request("id", "3"));
-    println!("{}", request("id", "3"));
+    println!("{}", RequestBuilder::new().url("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1")
+        .table("faj").param("id=3").run() ) ;
 
     let routes = home;
     warp::serve(routes).run(([0,0,0,0], port)).await;
