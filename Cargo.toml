@@ -8,3 +8,4 @@ regex = "1.12.2"
 serde = {version = "1.0.219", features = ["derive"]}
 tokio = { version = "1", features = ["full"] }
 warp = { version = "0.4", features = ["server"] }
+dotenvy = "0.15"
