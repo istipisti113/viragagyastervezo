@@ -84,7 +84,6 @@ impl RequestBuilder {
                 let novenyek: Vec<novenyrequest> = serde_json::from_str(&String::from_utf8_lossy(&output.stdout).to_string()).unwrap();
                 let mut returning:Vec<String> = vec![];
                 for nov in novenyek{
-                    //println!("{:?}", nov);
                     match nov.id {
                         Some(_) => {
                             returning.push(nov.id.unwrap().to_string());
