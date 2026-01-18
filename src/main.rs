@@ -1,4 +1,4 @@
-use tokio::runtime::Id;
+use tokio::{runtime::Id, select};
 use warp::{filters::path::param, reply::{Reply, Response}, Filter};
 use std::{fs, process::Output};
 use regex::Regex;
@@ -7,9 +7,10 @@ use dotenvy::dotenv;
 mod request;
 use request::RequestBuilder;
 
+#[derive(serde::Deserialize)]
 struct noveny{
     id: i16,
-    name: String,
+    neve: String,
     latinneve: String,
     nemszeret: Vec<i16>
 }
@@ -22,9 +23,10 @@ async fn main() {
     let mut novenyek: Vec<noveny> = vec![];
     let home = warp::path::end().map(|| warp::reply::html(fs::read_to_string("html/index.html").unwrap()));
 
-    println!("{}", RequestBuilder::new().url("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1")
-        .table("faj").param("id=3").run() ) ;
+    novenyek = RequestBuilder::new().url("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1")
+        .table("faj").select("*").run_struct().unwrap();
 
+    println!("{}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
     let routes = home;
     warp::serve(routes).run(([0,0,0,0], port)).await;
 }

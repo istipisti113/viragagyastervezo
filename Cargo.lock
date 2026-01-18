@@ -716,6 +716,7 @@ dependencies = [
  "dotenvy",
  "regex",
  "serde",
+ "serde_json",
  "tokio",
  "warp",
 ]

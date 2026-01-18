@@ -1,6 +1,16 @@
-use std::{env, process::Command};
+use std::{env, process::{Command, Output}};
+use serde::{Deserialize, Serialize};
+use serde_json;
 
-use crate::request;
+use crate::{noveny, request};
+
+#[derive(serde::Deserialize, Debug)]
+struct novenyrequest{
+    id: Option<i16>,
+    name: Option<String>,
+    latinneve: Option<String>,
+    nemszeret: Option<Vec<i16>>,
+}
 
 #[derive(Default)]
 pub struct RequestBuilder {
@@ -10,7 +20,8 @@ pub struct RequestBuilder {
     method: Option<String>,
     headers: Vec<(String, String)>,
     body: Option<String>,
-    table: Option<String>
+    table: Option<String>,
+    select: Option<String>
 }
 
 impl RequestBuilder {
@@ -48,45 +59,68 @@ impl RequestBuilder {
         self
     }
 
-    pub fn run(self) -> String {
-        let url = self.url.ok_or("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1");
-        let method = self.method.unwrap_or_else(|| "GET".to_string());
+    pub fn select(mut self, select: &str) -> Self {
+        self.select=Some(select.to_owned());
+        self
+    }
 
-        let mut params: Vec<String> = vec![];
-        let key = env::var("apikey").unwrap();
-        params.push(url.unwrap().to_string());
-        params.push("-H".to_string());
-        params.push("apikey: ".to_owned()+&key);
-
-        for p in self.param {
-            let mut splitted = p.split("=");
-            params.push("-d".to_string());
-            params.push(format!("{}=eq.{}",splitted.next().unwrap(), splitted.next().unwrap()))
-        }
-
-        //let mut command = Command::new("curl");
-        let mut command = Command::new("echo");
-        command.args(params);
-        let output = command.output().unwrap();
+    pub fn run_struct(self) -> Result<Vec<noveny>,String> {
+        let output = makerequest(self);
         match output.status.success() {
-            true=>{String::from_utf8_lossy(&output.stdout).to_string()}
-            false=>{String::from_utf8_lossy(&output.stderr).to_string()}
+            true=>{
+                //;
+                let novenyek: Vec<noveny> = serde_json::from_str(&String::from_utf8_lossy(&output.stdout).to_string()).unwrap();
+                Ok(novenyek)
+            }
+
+            false=>{Err(String::from_utf8_lossy(&output.stderr).to_string())}
+        }
+    }
+
+    pub fn run_str(self) -> Result<Vec<String>,String> {
+        let output = makerequest(self);
+        match output.status.success() {
+            true=>{
+                let novenyek: Vec<novenyrequest> = serde_json::from_str(&String::from_utf8_lossy(&output.stdout).to_string()).unwrap();
+                let mut returning:Vec<String> = vec![];
+                for nov in novenyek{
+                    //println!("{:?}", nov);
+                    match nov.id {
+                        Some(_) => {
+                            returning.push(nov.id.unwrap().to_string());
+                        }
+                        None=>{}
+                    }
+                }
+                Ok(returning)
+            }
+            false=>{Err(String::from_utf8_lossy(&output.stderr).to_string())}
         }
     }
 }
 
-fn request(paramtype: &str, param: &str)->String{
+fn makerequest(builder: RequestBuilder) -> Output{
+    let url = builder.url.unwrap_or("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1".to_string());
+    let method = builder.method.unwrap_or_else(|| "get".to_string());
+    let select = builder.select.unwrap_or("*".to_string());
+
     let key = env::var("apikey").unwrap();
-    let a = "apikey: ".to_owned()+&key;
+
+    let mut params: Vec<String> = vec![];
+    params.push(format!("--{}", method.to_lowercase()));
+    params.push(format!("{}",url+"/"+&builder.table.unwrap()));
+    params.push("-H".to_string());
+    params.push("apikey: ".to_owned()+&key);
+    params.push(String::from("-d"));
+    params.push(format!("select={}", select));
+
+    for p in builder.param {
+        let mut splitted = p.split("=");
+        params.push("-d".to_string());
+        params.push(format!("{}=eq.{}",splitted.next().unwrap(), splitted.next().unwrap()))
+    }
 
     let mut command = Command::new("curl");
-    //output.arg("https://ifconfig.co")
-    //output.arg("-H").arg(a).arg("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1/faj?id=eq.3");
-    command.args(["-H", &a, &format!("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1/faj?{}=eq.{}",paramtype, param)]);
-
-    let output = command.output().unwrap();
-    match output.status.success() {
-        true=>{String::from_utf8_lossy(&output.stdout).to_string()}
-        false=>{String::from_utf8_lossy(&output.stderr).to_string()}
-    }
+    command.args(params);
+    command.output().unwrap()
 }
