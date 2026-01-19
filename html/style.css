@@ -36,3 +36,240 @@ body{
   float: right;
   flex: 1;
 }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        /* Trigger gomb stílusa */
+        .trigger_btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .trigger_btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        /* Pop-up overlay (háttér) */
+        .popup_overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        /* Pop-up láthatóvá tétele */
+        .popup_overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Pop-up ablak */
+        .popup {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+        }
+        
+        .popup_overlay.active .popup {
+            transform: translateY(0);
+        }
+        
+        /* Pop-up fejléc */
+        .popup_header {
+            margin-bottom: 25px;
+        }
+        
+        .popup_header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+        
+        /* Pop-up tartalom */
+        .popup_content {
+            margin-bottom: 30px;
+        }
+        
+        .popup_content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        /* Pop-up gombok */
+        .popup_buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .popup_btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .primary_btn {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .primary_btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .secondary_btn {
+            background-color: #ecf0f1;
+            color: #333;
+        }
+        
+        .secondary_btn:hover {
+            background-color: #bdc3c7;
+        }
+        
+        /* Bezáró gomb */
+        .close_btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #7f8c8d;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .close_btn:hover {
+            background-color: #f5f5f5;
+            color: #e74c3c;
+        }
+        
+        /* További stílusok az utasításokhoz */
+        .instructions {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .instructions ul {
+            text-align: left;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .code {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            margin-top: 15px;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+        
+        footer {
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .popup {
+                padding: 30px 20px;
+            }
+            
+            .popup-buttons {
+                flex-direction: column;
+            }
+            
+            .popup-btn {
+                width: 100%;
+            }
+        }

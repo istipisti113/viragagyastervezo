@@ -2,19 +2,45 @@
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
+    <script src="asd.js" defer></script>
   </head>
   <body>
     <div id="container">
+      
       <div id="sidepanel">
         asdf <br>
         <button>asdfsdaf</button>
       </div>
+
       <div id="elvalaszto">
       </div>
+
       <div id="main">
-        <h1>viragagyas tervezo</h1>
-        <p>My first paragraph.</p>
+        <h1>Kerttervező</h1>
+        <button class="trigger_btn" id="open_popup">Pop-up Megnyitása</button>
+         
+        <div class="popup_overlay" id="popup_overlay">
+          <div class="popup">
+            <button class="close_btn" id="close_popup">&times;</button>
+            
+            <div class="popup_header">
+              <h2>Üdvözöljük!</h2>
+            </div>
+            
+            <div class="popup_content">
+              <p>Ez egy teljesen funkcionális pop-up ablak, amely kizárólag HTML és CSS segítségével készült.</p>
+              <p>A JavaScript kód minimális mennyiségben csak a megnyitáshoz és bezáráshoz szükséges.</p>
+              <p>A pop-up reszponzív és minden készüléken jól fog megjelenni.</p>
+            </div>
+            
+              <div class="popup_buttons">
+                <button class="popup_btn primary_btn" id="accept_btn">Elfogadom</button>
+                <button class="popup_btn secondary_btn" id="cancel_btn">Mégse</button>
+              </div>
+            </div>
+          </div>
       </div>
+
     </div>
   </body>
 </html>
