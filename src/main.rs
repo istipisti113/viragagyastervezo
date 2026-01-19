@@ -35,10 +35,15 @@ async fn main() {
     });
 
 
+<<<<<<< HEAD
     println!("{}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
     let routes = home
     .or(style).or(background).or(script).or(scriptasd)
     .or(novenyek);
+=======
+    println!("id: {}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
+    let routes = home.or(style).or(background).or(novenyek).or(script);
+>>>>>>> 1c43b0d10b40edec93f4a01387b9fe6126964002
     warp::serve(routes).run(([0,0,0,0], port)).await;
 }
 
