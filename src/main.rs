@@ -5,6 +5,7 @@ use regex::Regex;
 use dotenvy::dotenv;
 
 mod request;
+mod macros;
 use request::RequestBuilder;
 
 #[derive(serde::Deserialize, serde::Serialize, Debug)]
@@ -21,6 +22,7 @@ async fn main() {
     dotenv().ok();
     let port = 4040;
     println!("running on {}", port);
+
 
     //let novenyek: Vec<noveny> = RequestBuilder::new().url("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1").table("faj").select("*").run_struct().unwrap();
 
