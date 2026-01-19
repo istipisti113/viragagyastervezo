@@ -104,7 +104,15 @@ impl RequestBuilder {
         let output = makerequest(self);
         match output.status.success() {
             true=>{
-                let novenyek: Vec<novenyrequest> = serde_json::from_str(&String::from_utf8_lossy(&output.stdout).to_string()).unwrap();
+                let mut novenyek: Vec<novenyrequest> = vec![];
+                let parsing = &String::from_utf8_lossy(&output.stdout).to_string();
+                match serde_json::from_str::<Vec<novenyrequest>>(parsing) {
+                    Ok(lista) => {novenyek = lista}
+                    Err(error) => {
+                        println!("wrong parse: {}", parsing);
+                        return Err(error.to_string());
+                    }
+                }
                 let mut returning:Vec<String> = vec![];
                 for nov in novenyek{
                         match nov.getfield(&select) {

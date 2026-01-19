@@ -42,6 +42,11 @@ async fn main() {
         warp::reply::json(&serde_json::to_string(&plants).unwrap())
     });
 
+    let get= warp::path!("get_by"/String/String/String/String).map(|tabla: String, by: String, param: String, mikell: String|{
+        let plants: Vec<String> = RequestBuilder::new().table(&tabla).select(&mikell).param(&format!("{}={}",by,param)).run_str().unwrap();
+        warp::reply::json(&serde_json::to_string(&plants).unwrap())
+    });
+
     let novenynevek= warp::path!("novenynevek").map(||{
         let plants: Vec<String> = RequestBuilder::new().table("fajta").select("neve").run_str().unwrap();
         warp::reply::json(&serde_json::to_string(&plants).unwrap())
@@ -49,12 +54,14 @@ async fn main() {
 
 
 
+    //tesztek
     println!("faj id: {}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
-    println!("faj nevek: {}", RequestBuilder::new().table("faj").select("neve").run_str().unwrap().join(" "));
+    println!("paradicsom: {}", RequestBuilder::new().table("faj").select("neve").param("id=4").run_str().unwrap().join(" "));
     println!("fajta nevek: {}", RequestBuilder::new().table("fajta").select("neve").run_str().unwrap().join(" "));
+
     let routes = home
     .or(style).or(background).or(script).or(scriptasd)
-    .or(novenyek).or(novenynevek).or(query);
+    .or(novenyek).or(novenynevek).or(query).or(get);
     warp::serve(routes).run(([0,0,0,0], port)).await;
 }
 
