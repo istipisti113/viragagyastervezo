@@ -34,7 +34,7 @@ async fn main() {
     });
 
 
-    println!("{}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
+    println!("id: {}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
     let routes = home.or(style).or(background).or(novenyek).or(script);
     warp::serve(routes).run(([0,0,0,0], port)).await;
 }
