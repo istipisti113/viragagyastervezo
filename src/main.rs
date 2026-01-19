@@ -11,8 +11,9 @@ use request::RequestBuilder;
 struct noveny{
     id: i16,
     neve: String,
-    latinneve: String,
-    nemszeret: Vec<i16>
+    fajid: i16,
+    sortav: i16,
+    totav: i16
 }
 
 #[tokio::main]
@@ -29,18 +30,31 @@ async fn main() {
     let script = warp::path!("script.js").and(warp::fs::file("script.js"));
     let scriptasd = warp::path!("asd.js").and(warp::fs::file("html/asd.js"));
     let background = warp::path!("background.jpg").and(warp::fs::file("images/background.jpg"));
+
+    //minden noveny minden adata
     let novenyek = warp::path!("novenyek").map(||{
-        let plants: Vec<noveny> = RequestBuilder::new().url("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1").table("faj").select("*").run_struct().unwrap();
+        let plants: Vec<noveny> = RequestBuilder::new().url("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1").table("fajta").select("*").run_struct().unwrap();
+        warp::reply::json(&serde_json::to_string(&plants).unwrap())
+    });
+
+    let query= warp::path!("query"/String/String).map(|tabla: String, select: String|{
+        let plants: Vec<String> = RequestBuilder::new().table(&tabla).select(&select).run_str().unwrap();
+        warp::reply::json(&serde_json::to_string(&plants).unwrap())
+    });
+
+    let novenynevek= warp::path!("novenynevek").map(||{
+        let plants: Vec<String> = RequestBuilder::new().table("fajta").select("neve").run_str().unwrap();
         warp::reply::json(&serde_json::to_string(&plants).unwrap())
     });
 
 
 
-
-    println!("{}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
+    println!("faj id: {}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
+    println!("faj nevek: {}", RequestBuilder::new().table("faj").select("neve").run_str().unwrap().join(" "));
+    println!("fajta nevek: {}", RequestBuilder::new().table("fajta").select("neve").run_str().unwrap().join(" "));
     let routes = home
     .or(style).or(background).or(script).or(scriptasd)
-    .or(novenyek);
+    .or(novenyek).or(novenynevek).or(query);
     warp::serve(routes).run(([0,0,0,0], port)).await;
 }
 

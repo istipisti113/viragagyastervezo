@@ -7,9 +7,31 @@ use crate::{noveny, request};
 #[derive(serde::Deserialize, Debug)]
 struct novenyrequest{
     id: Option<i16>,
-    name: Option<String>,
+    neve: Option<String>,
     latinneve: Option<String>,
     nemszeret: Option<Vec<i16>>,
+    sortav: Option<i16>,
+    totav: Option<i16>,
+}
+
+impl novenyrequest {
+    fn getfield(&self, field: &str)-> Option<String>{
+        match field{
+            "neve" => {
+                match &self.neve {
+                    None => None,
+                    Some(nev) => Some(nev.to_string())
+                }
+            }
+            "id" => {
+                match &self.id {
+                    None => None,
+                    Some(id) => Some(id.to_string())
+                }
+            }
+            _ => None
+        }
+    }
 }
 
 #[derive(Default)]
@@ -78,18 +100,19 @@ impl RequestBuilder {
     }
 
     pub fn run_str(self) -> Result<Vec<String>,String> {
+        let select = self.select.clone().unwrap_or_default();
         let output = makerequest(self);
         match output.status.success() {
             true=>{
                 let novenyek: Vec<novenyrequest> = serde_json::from_str(&String::from_utf8_lossy(&output.stdout).to_string()).unwrap();
                 let mut returning:Vec<String> = vec![];
                 for nov in novenyek{
-                    match nov.id {
-                        Some(_) => {
-                            returning.push(nov.id.unwrap().to_string());
+                        match nov.getfield(&select) {
+                            Some(_) => {
+                                returning.push(nov.getfield(&select).unwrap().to_string());
+                            }
+                            None=>{}
                         }
-                        None=>{}
-                    }
                 }
                 Ok(returning)
             }

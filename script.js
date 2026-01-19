@@ -11,5 +11,5 @@ async function loadPage(page, id) {
 
 async function loadJson(page) {
   return fetch(page)
-    .then(response => response.text())
+    .then(response => response.json())
 }
