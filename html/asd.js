@@ -1,6 +1,14 @@
 // Pop-up megnyitása
-document.getElementById('open_popup').addEventListener('click', function() {
+document.getElementById('open_popup').addEventListener('click', async function() {
     document.getElementById('popup_overlay').classList.add('active');
+    var lista = await loadJson("query/faj/neve")
+    var sor = "<option value='NEVE'>NEVE</option>"
+    var asdf = ""
+    for (let name in lista) {
+        asdf+=sor.replaceAll("NEVE", lista[name])
+        console.log(lista[name])
+    }
+    document.getElementById("plant_select").innerHTML = asdf
 });
         
 // Pop-up bezárása a X gombbal
