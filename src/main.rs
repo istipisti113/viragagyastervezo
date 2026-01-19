@@ -27,6 +27,7 @@ async fn main() {
     let home = warp::path::end().map(|| warp::reply::html(fs::read_to_string("html/index.html").unwrap()));
     let style = warp::path!("style.css").and(warp::fs::file("html/style.css"));
     let script = warp::path!("script.js").and(warp::fs::file("script.js"));
+    let scriptasd = warp::path!("asd.js").and(warp::fs::file("html/asd.js"));
     let background = warp::path!("background.jpg").and(warp::fs::file("images/background.jpg"));
     let novenyek = warp::path!("novenyek").map(||{
         let plants: Vec<noveny> = RequestBuilder::new().url("https://qrugmxvevfhnipzirkdy.supabase.co/rest/v1").table("faj").select("*").run_struct().unwrap();
@@ -35,7 +36,9 @@ async fn main() {
 
 
     println!("{}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
-    let routes = home.or(style).or(background).or(novenyek).or(script);
+    let routes = home
+    .or(style).or(background).or(script).or(scriptasd)
+    .or(novenyek);
     warp::serve(routes).run(([0,0,0,0], port)).await;
 }
 

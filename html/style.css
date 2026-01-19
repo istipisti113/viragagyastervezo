@@ -5,30 +5,6 @@ body{
   background-color: gray;
 }
 
-#container{
-  display: flex;
-  height: 100%;
-}
-
-#sidepanel{
-  height: 100%;
-  align-items: center;
-  text-align: center;
-  padding: 10px;
-  width: 20%;
-  max-width: 200px;
-  float: left;
-  flex-shrink: 0;
-  background-color: rgb(96,59,37);
-}
-
-#elvalaszto {
-  width: 25px;
-  background-color: black;
-  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-photo%2Fcobblestone-pavement-texture-background-top-view-stone-road-ultra-high-resolution-image_335957-157.jpg&f=1&nofb=1&ipt=ba93380f54a76662d2ec0801b7b660eeb3c4bb931cb3c731dbc95b4a863a3985");
-  background-size: 200px;
-  border-radius: 5px;
-}
 
 #main{
   text-align: center;
@@ -273,3 +249,27 @@ body{
                 width: 100%;
             }
         }
+#container{
+  display: flex;
+  height: 100%;
+}
+
+#sidepanel{
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  width: 20%;
+  max-width: 200px;
+  float: left;
+  flex-shrink: 0;
+  background-color: rgb(96,59,37);
+}
+
+#elvalaszto {
+  width: 25px;
+  background-color: black;
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-photo%2Fcobblestone-pavement-texture-background-top-view-stone-road-ultra-high-resolution-image_335957-157.jpg&f=1&nofb=1&ipt=ba93380f54a76662d2ec0801b7b660eeb3c4bb931cb3c731dbc95b4a863a3985");
+  background-size: 200px;
+  border-radius: 5px;
+}
