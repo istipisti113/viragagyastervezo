@@ -13,7 +13,7 @@ html, body {
 }
 
 body {
-    background-image: url("background.jpg");
+    background-image: url("background");
     color: whitesmoke;
     line-height: 1.6;
     background-size: cover;

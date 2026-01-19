@@ -29,7 +29,7 @@ async fn main() {
     let style = warp::path!("style.css").and(warp::fs::file("html/style.css"));
     let script = warp::path!("script.js").and(warp::fs::file("script.js"));
     let scriptasd = warp::path!("asd.js").and(warp::fs::file("html/asd.js"));
-    let background = warp::path!("background.jpg").and(warp::fs::file("images/background.jpg"));
+    let background = warp::path!("background").and(warp::fs::file("images/fold.png"));
 
     //minden noveny minden adata
     let novenyek = warp::path!("novenyek").map(||{
