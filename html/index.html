@@ -9,8 +9,7 @@
     <div id="container">
       
       <div id="sidepanel">
-        asdf <br>
-        <button>asdfsdaf</button>
+
       </div>
 
       <div id="elvalaszto">
@@ -18,7 +17,38 @@
 
       <div id="main">
         <h1>Kerttervező</h1>
-        <button class="trigger_btn" id="open_popup">Pop-up Megnyitása</button>
+
+        <p>
+          Üdvözöljük a Kerttervezőben! 🏡<br>
+          Ez az alkalmazás segít neked megtervezni álmaid kertjét egyszerűen és gyorsan. Itt mindent megtalálsz, amire szükséged van a tökéletes kert kialakításához!<br>
+          📐 Mit tudsz csinálni?<br>
+          🖼️ KERTMÉRET MEGADÁSA<br>
+
+          🌸 NÖVÉNYEK KIVÁLASZTÁSA<br>
+
+          🔢 MENNYISÉGEK MEGADÁSA<br>
+
+          ✨ AUTOMATIKUS TERVKÉSZÍTÉS<br>
+
+          🎯 Mire számíthatsz? <br>
+          ✅ Okos javaslatok - mely növények illenek össze<br>
+          ✅ Terület számítás - pontosan látod, mennyi helyre van szükséged<br>
+          ✅ Vizuális terv - áttekinthető elrendezés<br>
+          ✅ Figyelmeztetések - ha valami nem optimális<br>
+          ✅ Menthető tervek - később visszatérhetsz hozzájuk<br>
+
+          🚀 Kezdjük el!<br>
+          Kattints a "Tervezés" gombra<br>
+          Add meg a kert méreteit<br>
+          Válaszd ki a kedvenc növényeidet<br>
+          Add meg a darabszámokat<br>
+          Kapsz egy szép kerttervet!
+        </p>
+
+
+
+        <!--pop-up-->
+        <button class="trigger_btn" id="open_popup">Tervezés</button>
          
         <div class="popup_overlay" id="popup_overlay">
           <div class="popup">
@@ -29,15 +59,29 @@
             </div>
             
             <div class="popup_content">
-              <p>Ez egy teljesen funkcionális pop-up ablak, amely kizárólag HTML és CSS segítségével készült.</p>
-              <p>A JavaScript kód minimális mennyiségben csak a megnyitáshoz és bezáráshoz szükséges.</p>
-              <p>A pop-up reszponzív és minden készüléken jól fog megjelenni.</p>
+              <p>Mekkora területet szeretne tervezni?</p>
+              <input type="text" id="area_input" placeholder="Hossz (méter)">
+              <input type="text" id="width_input" placeholder="Szélesség (méter)">
+              <div id="error_message" class="error_message"></div>
+              <p>Milyen fajtájú növényeket szeretne ültetni?(válasszon a legörülő listából, többet is kijelölhet)</p>
+              <select id="plant_select" multiple>
+                <option value=""></option>
+
+              </select>
+              <div id="plant_selection_error" class="error_message"></div>
+            <div id="plant_quantity_section" style="display:none;">
+
+            
+              <p>Mennyit szeretne ültetni a különböző kiválasztott növényekből(v)?</p>
+              <div id="plant_quantity_inputs" class="plant_quantity_inputs"></div>
+              <div id="quantity_error_message" class="error_message"></div>
             </div>
             
-              <div class="popup_buttons">
+              <!--<div class="popup_buttons">
                 <button class="popup_btn primary_btn" id="accept_btn">Elfogadom</button>
                 <button class="popup_btn secondary_btn" id="cancel_btn">Mégse</button>
               </div>
+            -->
             </div>
           </div>
       </div>

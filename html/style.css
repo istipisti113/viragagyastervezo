@@ -95,21 +95,22 @@ p {
 
 
 .trigger_btn {
-    background-color: #3498db;
+    background-color: brown;
     color: white;
     border: none;
     padding: 15px 35px;
+    margin-top: 20px;
     font-size: 1.2rem;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    box-shadow: 0 4px 15px black;
 }
 
 .trigger_btn:hover {
-    background-color: #2980b9;
+    background-color: brown;
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    box-shadow: 0 6px 20px rgb(63, 63, 63);
 }
 
 /* Pop-up overlay (háttér) */
