@@ -1,143 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="style.css">
-    <script src="asd.js" defer></script>
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <div id="container">
-      
-      <div id="sidepanel">
-        <!--pop-up-->
-        <button class="trigger_btn" id="open_popup">Tervezés</button>
-         
-        <div class="popup_overlay" id="popup_overlay">
-          <div class="popup">
-            <button class="close_btn" id="close_popup">&times;</button>
-            
-            <div class="popup_header">
-              <h2>Üdvözöljük!</h2>
-            </div>
-            
-            <div class="popup_content">
-              <p>Mekkora területet szeretne tervezni?</p>
-              <input type="text" id="area_input" placeholder="Hossz (méter)">
-              <input type="text" id="width_input" placeholder="Szélesség (méter)">
-              <div id="error_message" class="error_message"></div>
-              <p>Milyen fajtájú növényeket szeretne ültetni?(válasszon a legörülő listából, többet is kijelölhet)</p>
-              <select id="plant_select">
-              </select><br>
-              <select id="fajta_select">
-              </select><br>
-              <button>zsamo zsase</button>
-              <div id="plant_selection_error" class="error_message"></div>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="asd.js" defer></script>
+  <script src="script.js"></script>
+</head>
+<!--
+-->
+
+<body>
+  <div id="container">
+
+    <div id="sidepanel">
+      <!--pop-up-->
+      <button class="trigger_btn" id="open_popup">Tervezés</button> <br><br>
+    </div>
+    <div id="elvalaszto">
+    </div>
+    <div id="main">
+      <div class="popup_overlay" id="popup_overlay">
+        <div class="popup">
+          <button class="close_btn" id="close_popup">&times;</button>
+
+          <div class="popup_header">
+            <h2>Üdvözöljük!</h2>
+          </div>
+
+          <div class="popup_content">
+            <p>Mekkora területet szeretne tervezni?</p>
+            <input type="text" id="area_input" placeholder="Hossz (méter)">
+            <input type="text" id="width_input" placeholder="Szélesség (méter)">
+            <div id="error_message" class="error_message"></div>
+            <p>Milyen fajtájú növényeket szeretne ültetni?(válasszon a legörülő listából, többet is kijelölhet)</p>
+            <select id="plant_select">
+            </select><br>
+            <select id="fajta_select">
+            </select><br>
+            <button>zsamo zsase</button>
+            <div id="plant_selection_error" class="error_message"></div>
             <div id="plant_quantity_section" style="display:none;">
 
-            <p>Mennyit szeretne ültetni a különböző kiválasztott növényekből(v)?</p>
-            <div id="plant_quantity_inputs" class="plant_quantity_inputs"></div>
-            <div id="quantity_error_message" class="error_message"></div>
-          </div>
-            
-              <!--<div class="popup_buttons">
-                <button class="popup_btn primary_btn" id="accept_btn">Elfogadom</button>
-                <button class="popup_btn secondary_btn" id="cancel_btn">Mégse</button>
-              </div>
-            -->
-          </div>
-        </div>
-
-        <button class="trigger_btn" id="open_popup">Információk</button>
-        <div class="popup_overlay" id="info_popup_overlay">
-          <div class="popup">
-            <button class="close_btn" id="close_info_popup">&times;</button>
-
-            <div class="popup_header">
-              <h2>Információk</h2>
-            </div>
-
-            <div class="popup_content">
-              <p>
-                Üdvözöljük a Kerttervezőben! 🏡<br>
-                Ez az alkalmazás segít neked megtervezni álmaid kertjét egyszerűen és gyorsan. Itt mindent megtalálsz, amire szükséged van a tökéletes kert kialakításához!<br>
-                📐 Mit tudsz csinálni?<br>
-                🖼️ KERTMÉRET MEGADÁSA<br>
-
-                🌸 NÖVÉNYEK KIVÁLASZTÁSA<br>
-
-                🔢 MENNYISÉGEK MEGADÁSA<br>
-
-                ✨ AUTOMATIKUS TERVKÉSZÍTÉS<br>
-
-                🎯 Mire számíthatsz? <br>
-                ✅ Okos javaslatok - mely növények illenek össze<br>
-                ✅ Terület számítás - pontosan látod, mennyi helyre van szükséged<br>
-                ✅ Vizuális terv - áttekinthető elrendezés<br>
-                ✅ Figyelmeztetések - ha valami nem optimális<br>
-                ✅ Menthető tervek - később visszatérhetsz hozzájuk<br>
-
-                🚀 Kezdjük el!<br>
-                Kattints a "Tervezés" gombra<br>
-                Add meg a kert méreteit<br>
-                Válaszd ki a kedvenc növényeidet<br>
-                Add meg a darabszámokat<br>
-                Kapsz egy szép kerttervet!
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="elvalaszto">
-      </div>
-
-      <div id="main">
-        <h1>Kerttervező</h1>
-
-      
-
-
-        <!--
-        <button class="trigger_btn" id="open_popup">Tervezés</button>
-         
-        <div class="popup_overlay" id="popup_overlay">
-          <div class="popup">
-            <button class="close_btn" id="close_popup">&times;</button>
-            
-            <div class="popup_header">
-              <h2>Üdvözöljük!</h2>
-            </div>
-            
-            <div class="popup_content">
-              <p>Mekkora területet szeretne tervezni?</p>
-              <input type="text" id="area_input" placeholder="Hossz (méter)">
-              <input type="text" id="width_input" placeholder="Szélesség (méter)">
-              <div id="error_message" class="error_message"></div>
-              <p>Milyen fajtájú növényeket szeretne ültetni?(válasszon a legörülő listából, többet is kijelölhet)</p>
-              <select id="plant_select" multiple>
-                
-
-              </select>
-              <div id="plant_selection_error" class="error_message"></div>
-            <div id="plant_quantity_section" style="display:none;">
-
-            
               <p>Mennyit szeretne ültetni a különböző kiválasztott növényekből(v)?</p>
               <div id="plant_quantity_inputs" class="plant_quantity_inputs"></div>
               <div id="quantity_error_message" class="error_message"></div>
             </div>
-            
-              <div class="popup_buttons">
-                <button class="popup_btn primary_btn" id="accept_btn">Elfogadom</button>
-                <button class="popup_btn secondary_btn" id="cancel_btn">Mégse</button>
-              </div>
-            
-            </div>
+
           </div>
         </div>
-        -->
       </div>
+      <div class="popup_overlay" id="info_popup_overlay">
+        <div class="popup">
+          <button class="close_btn" id="close_info_popup">&times;</button>
 
+          <div class="popup_header">
+            <h2>Információk</h2>
+          </div>
+
+          <div class="popup_content">
+            <p>
+              Üdvözöljük a Kerttervezőben! 🏡<br>
+              Ez az alkalmazás segít neked megtervezni álmaid kertjét egyszerűen és gyorsan. Itt mindent megtalálsz,
+              amire szükséged van a tökéletes kert kialakításához!<br>
+              📐 Mit tudsz csinálni?<br>
+              🖼️ KERTMÉRET MEGADÁSA<br>
+
+              🌸 NÖVÉNYEK KIVÁLASZTÁSA<br>
+
+              🔢 MENNYISÉGEK MEGADÁSA<br>
+
+              ✨ AUTOMATIKUS TERVKÉSZÍTÉS<br>
+
+              🎯 Mire számíthatsz? <br>
+              ✅ Okos javaslatok - mely növények illenek össze<br>
+              ✅ Terület számítás - pontosan látod, mennyi helyre van szükséged<br>
+              ✅ Vizuális terv - áttekinthető elrendezés<br>
+              ✅ Figyelmeztetések - ha valami nem optimális<br>
+              ✅ Menthető tervek - később visszatérhetsz hozzájuk<br>
+
+              🚀 Kezdjük el!<br>
+              Kattints a "Tervezés" gombra<br>
+              Add meg a kert méreteit<br>
+              Válaszd ki a kedvenc növényeidet<br>
+              Add meg a darabszámokat<br>
+              Kapsz egy szép kerttervet!
+            </p>
+          </div>
+        </div>
+      </div>
+      <h1>Kerttervező</h1>
     </div>
-  </body>
+</body>
+
 </html>
