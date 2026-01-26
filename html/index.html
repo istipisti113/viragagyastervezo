@@ -3,22 +3,49 @@
 
 <head>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="asd.js" defer></script>
-  <script src="script.js"></script>
 </head>
-<!--
--->
 
 <body>
   <div id="container">
-
     <div id="sidepanel">
-      <!--pop-up-->
-      <button class="trigger_btn" id="open_popup">Tervezés</button> <br><br>
+      <div class="sidepanel-header">
+        <i class="fas fa-leaf"></i> Kerttervező
+      </div>
+      
+      <div class="sidepanel-buttons">
+        <button class="sidepanel-btn trigger_btn" id="open_popup">
+          <i class="fas fa-database"></i> Adatok
+        </button>
+        <button class="sidepanel-btn trigger_btn" id="open_info_popup">
+          <i class="fas fa-info-circle"></i> Info
+        </button>
+        <button class="sidepanel-btn trigger_btn" id="open_about_popup">
+          <i class="fas fa-users"></i> Rólunk
+        </button>
+        <button class="sidepanel-btn trigger_btn" id="save_garden">
+          <i class="fas fa-save"></i> Kert mentése
+        </button>
+        <button class="sidepanel-btn trigger_btn" id="load_garden">
+          <i class="fas fa-folder-open"></i> Kert betöltése
+        </button>
+        <button class="sidepanel-btn trigger_btn" id="export_garden">
+          <i class="fas fa-download"></i> Exportálás
+        </button>
+      </div>
+      
+      <div class="sidepanel-footer">
+        Kerttervező v1.0<br>
+        <small>&copy; 2025</small>
+      </div>
     </div>
+    
     <div id="elvalaszto">
     </div>
+    
     <div id="main">
+      <!-- Adatok popup -->
       <div class="popup_overlay" id="popup_overlay">
         <div class="popup">
           <button class="close_btn" id="close_popup">&times;</button>
@@ -49,6 +76,8 @@
           </div>
         </div>
       </div>
+      
+      <!-- Info popup -->
       <div class="popup_overlay" id="info_popup_overlay">
         <div class="popup">
           <button class="close_btn" id="close_info_popup">&times;</button>
@@ -79,7 +108,7 @@
               ✅ Menthető tervek - később visszatérhetsz hozzájuk<br>
 
               🚀 Kezdjük el!<br>
-              Kattints a "Tervezés" gombra<br>
+              Kattints a "Adatok" gombra<br>
               Add meg a kert méreteit<br>
               Válaszd ki a kedvenc növényeidet<br>
               Add meg a darabszámokat<br>
@@ -88,8 +117,85 @@
           </div>
         </div>
       </div>
-      <h1>Kerttervező</h1>
-    </div>
-</body>
+      
+      <!-- ÚJ "Rólunk" popup -->
+      <div class="popup_overlay" id="about_popup_overlay">
+        <div class="popup">
+          <button class="close_btn" id="close_about_popup">&times;</button>
 
+          <div class="popup_header">
+            <h2>Rólunk</h2>
+          </div>
+
+          <div class="popup_content">
+            <p>Ez a rész hamarosan elkészül...</p>
+            <p>Jelenleg a "Rólunk" oldal tartalma még fejlesztés alatt áll.</p>
+            <div style="text-align: center; margin-top: 30px;">
+              <i class="fas fa-seedling" style="font-size: 3rem; color: #8D6E63;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Kert mentése popup -->
+      <div class="popup_overlay" id="save_popup_overlay">
+        <div class="popup">
+          <button class="close_btn" id="close_save_popup">&times;</button>
+
+          <div class="popup_header">
+            <h2>Kert mentése</h2>
+          </div>
+
+          <div class="popup_content">
+            <p>Add meg a kert nevet:</p>
+            <input type="text" id="garden_name" placeholder="Kert neve">
+            <div id="save_error_message" class="error_message"></div>
+            <p>A kert terve el lesz mentve, hogy később visszatérhess hozzá.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Kert betöltése popup -->
+      <div class="popup_overlay" id="load_popup_overlay">
+        <div class="popup">
+          <button class="close_btn" id="close_load_popup">&times;</button>
+
+          <div class="popup_header">
+            <h2>Kert betöltése</h2>
+          </div>
+
+          <div class="popup_content">
+            <p>Válassz egy korábban mentett kertet:</p>
+            <select id="saved_gardens">
+              <option value="">-- Válassz egy kertet --</option>
+            </select>
+            <div id="load_error_message" class="error_message"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Exportálás popup -->
+      <div class="popup_overlay" id="export_popup_overlay">
+        <div class="popup">
+          <button class="close_btn" id="close_export_popup">&times;</button>
+
+          <div class="popup_header">
+            <h2>Exportálás</h2>
+          </div>
+
+          <div class="popup_content">
+            <p>Válaszd ki az exportálás formátumát:</p>
+            <select id="export_format">
+              <option value="pdf">PDF dokumentum</option>
+              <option value="image">Kép (PNG)</option>
+              <option value="text">Szöveges formátum</option>
+            </select>
+            <div id="export_error_message" class="error_message"></div>
+            <p>A kert terve exportálva lesz a választott formátumban.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
