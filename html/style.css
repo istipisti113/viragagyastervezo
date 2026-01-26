@@ -1,4 +1,4 @@
-/* 1. Alap reset - CSAK EGYSZER! */
+/* 1. Alap reset */
 * {
     margin: 0;
     padding: 0;
@@ -29,33 +29,114 @@ body {
     width: 100%;
 }
 
-/* 4. Oldalsáv */
+/* 4. Oldalsáv - ATUALIZÁLT */
 #sidepanel {
     height: 100%;
     display: flex;
-    padding: 10px;
-    width: 20%;
-    min-width: 150px;
-    max-width: 200px;
+    padding: 20px 10px;
+    width: 250px;
+    min-width: 220px;
     text-align: center;
-    background-color: rgb(96, 59, 37);
+    background-color: #5D4037;
     flex-shrink: 0;
-    /* ai slop
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Fentről kezdje 
-    overflow-y: auto;*/
+    justify-content: flex-start;
+    overflow-y: auto;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+    border-right: 1px solid #3E2723;
+}
+
+/* Oldalsáv gombok konténere */
+.sidepanel-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Sidepanel gombok */
+.sidepanel-btn {
+    background-color: brown;
+    color: white;
+    border: none;
+    padding: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    height: 70px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px black;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.sidepanel-btn:hover {
+    background-color: brown;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgb(63, 63, 63);
+}
+
+.sidepanel-btn:active {
+    transform: translateY(0);
+}
+
+/* Gomb ikonok */
+.sidepanel-btn i {
+    font-size: 1.4rem;
+    width: 30px;
+    text-align: center;
+}
+
+/* Gomb szöveg igazítása */
+.sidepanel-btn span {
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* Aktív gomb */
+.sidepanel-btn.active {
+    background-color: #8B0000; /* Sötétebb barna */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Oldalsáv fejléc */
+.sidepanel-header {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 15px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    text-align: center;
+}
+
+/* Oldalsáv lábléc */
+.sidepanel-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* 5. Elválasztó sáv */
 #elvalaszto {
     width: 25px;
     min-width: 25px;
-    background-color: black;
-    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-photo%2Fcobblestone-pavement-texture-background-top-view-stone-road-ultra-high-resolution-image_335957-157.jpg&f=1&nofb=1&ipt=ba93380f54a76662d2ec0801b7b660eeb3c4bb931cb3c731dbc95b4a863a3985");
+    background-color: brown;
     background-size: cover;
     background-position: center;
-    border-radius: 5px;
     cursor: ew-resize;
     flex-shrink: 0;
 }
@@ -68,8 +149,6 @@ body {
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.3);
 }
-
-
 
 .container {
     max-width: 800px;
@@ -88,35 +167,6 @@ h1 {
 p {
     font-size: 1.1rem;
     margin-bottom: 30px;
-}
-
-
-
-/* Pop-up */
-
-
-.trigger_btn {
-    background-color: brown;
-    color: white;
-    border: none;
-    padding: 0px;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin: auto;
-    margin-top: 15px;
-    margin-bottom: 0px;
-    font-size: 1.2rem;
-    border-radius: 50px;
-    height: 70px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px black;
-}
-
-.trigger_btn:hover {
-    background-color: brown;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgb(63, 63, 63);
 }
 
 /* Pop-up overlay (háttér) */
@@ -301,7 +351,7 @@ footer {
     }
 }
 
-/* Reszponzív design hozzáadása */
+/* Reszponzív design hozzáadása - ATUALIZÁLT */
 @media (max-width: 768px) {
     #container {
         flex-direction: column;
@@ -311,16 +361,59 @@ footer {
         width: 100%;
         max-width: 100%;
         height: auto;
-        min-height: 150px;
+        min-height: auto;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        padding: 10px;
+    }
+    
+    .sidepanel-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    
+    .sidepanel-btn {
+        width: auto;
+        min-width: 180px;
+        flex: 1;
+        height: 60px;
+        font-size: 1rem;
+        padding: 0 20px;
+    }
+    
+    .sidepanel-btn i {
+        font-size: 1.2rem;
     }
     
     #elvalaszto {
         width: 100%;
-        height: 10px;
-        margin: 10px 0;
+        height: 5px;
+        margin: 5px 0;
+        cursor: ns-resize;
+    }
+    
+    #main {
+        padding: 10px;
+    }
+}
+
+/* Kisebb képernyők */
+@media (max-width: 480px) {
+    .sidepanel-btn {
+        font-size: 0.9rem;
+        padding: 0 15px;
+        height: 50px;
+    }
+    
+    .sidepanel-header {
+        font-size: 1.2rem;
+    }
+    
+    .sidepanel-btn i {
+        font-size: 1rem;
     }
 }
 
@@ -341,4 +434,31 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(96, 59, 37, 0.9);
+}
+
+.error_message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    min-height: 20px;
+}
+
+.plant_quantity_inputs {
+    margin-top: 15px;
+}
+
+/* Input mezők stílusai */
+input[type="text"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: brown;
+    box-shadow: 0 0 5px rgba(165, 42, 42, 0.3);
 }
