@@ -8,8 +8,8 @@ macro_rules! novenybuilder {
     };
     ($name: ident, $($param:ident),*  ) => {
         pub fn $name(mut self, $( $param:&str ),* ) -> Self{
-            self.$name.push( (
-                $( $param.to_string() )* ,
+            self.$name.push((
+                $( $param.to_string(), )*
                 ));
             self
         }

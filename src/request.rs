@@ -59,15 +59,16 @@ impl RequestBuilder {
     novenybuilder!(table);
     novenybuilder!(select);
 
-    pub fn header(mut self, key: &str, value: &str) -> Self {
-        self.header.push((key.to_string(), value.to_string()));
-        self
-    }
 
     novenybuilder!(param, param);
+    novenybuilder!(header, key, value);
 
     //pub fn param(mut self, param: &str) -> Self {
     //    self.param.push(param.to_owned());
+    //    self
+    //}
+    //pub fn header(mut self, key: &str, value: &str) -> Self {
+    //    self.header.push((key.to_string(), value.to_string()));
     //    self
     //}
 
