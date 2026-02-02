@@ -143,7 +143,6 @@ body {
 
 /* 6. Fő tartalom terület */
 #main {
-    text-align: center;
     padding: 10px;
     flex: 1;
     overflow-y: auto;
