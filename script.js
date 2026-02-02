@@ -15,6 +15,7 @@ async function loadJson(page) {
 }
 
 function hozzaadas() {
+  console.log(selectedPlants)
   const plantSelect = document.getElementById('plant_select');
   const fajtaSelect = document.getElementById('fajta_select');
   const mennyiInput = document.getElementById('mennyi');
@@ -30,19 +31,24 @@ function hozzaadas() {
     return;
   }
 
+  if ( selectedPlants.filter((plant) => plant.plantType == selectedPlantValue && plant.variety == selectedFajtaValue).length != 0) {
+    selectedPlants.filter((plant) => plant.plantType == selectedPlantValue && plant.variety == selectedFajtaValue)[0].quantity += selectedQuantity
+  } else {
+    errorMessageDiv.textContent = '';
+
+    // Új növény objektum létrehozása
+    const newPlant = {
+      plantType: selectedPlantValue,
+      variety: selectedFajtaValue,
+      quantity: selectedQuantity,
+      id: Date.now() // Egyedi azonosító
+    };
+
+    // Hozzáadás a tömbhöz
+    selectedPlants.push(newPlant);
+  }
+
   // Hibaüzenet törlése
-  errorMessageDiv.textContent = '';
-
-  // Új növény objektum létrehozása
-  const newPlant = {
-    plantType: selectedPlantValue,
-    variety: selectedFajtaValue,
-    quantity: selectedQuantity,
-    id: Date.now() // Egyedi azonosító
-  };
-
-  // Hozzáadás a tömbhöz
-  selectedPlants.push(newPlant);
 
   // Frissítjük a megjelenítést
   updatePlantList();
@@ -117,7 +123,12 @@ function updatePlantList() {
   selectedPlants.forEach(plant => {
     const li = document.createElement('li');
     li.setAttribute('data-id', plant.id);
-    li.textContent = `${plant.plantType} - ${plant.variety}: ${plant.quantity} db`;
+    li.textContent = `${plant.plantType} - ${plant.variety}: `;
+
+    const mennyikell = document.createElement("input");
+    mennyikell.setAttribute("type", "number")
+    mennyikell.value = plant.quantity
+    li.appendChild(mennyikell)
 
     // Törlés gomb
     const deleteBtn = document.createElement('button');
