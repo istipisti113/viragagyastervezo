@@ -85,7 +85,7 @@ const plantSelectionErrorDiv = document.getElementById('plant_selection_error');
 // Hozzáadási logika
 
 // Tervezés gomb eseménykezelője - CSAK a validálás
-planButton.addEventListener('click', function () {
+function tervezes() {
   // Első körben ellenőrizzük a terület mezőket
   const length = parseFloat(areaInput.value);
   const width = parseFloat(widthInput.value);
@@ -107,7 +107,7 @@ planButton.addEventListener('click', function () {
 
   // Ha minden valid, akkor jelenítsük meg a mennyiség beviteli részt
   showQuantitySection();
-});
+}
 
 // Növények listájának frissítése
 function updatePlantList() {
