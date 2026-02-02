@@ -2,7 +2,7 @@ use std::{env, process::{Command, Output}};
 use serde::{Deserialize, Serialize};
 use serde_json;
 
-use crate::{noveny, request};
+use crate::{noveny, novenybuilder, request};
 
 #[derive(serde::Deserialize, Debug)]
 struct novenyrequest{
@@ -34,57 +34,43 @@ impl novenyrequest {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Default)]
 pub struct RequestBuilder {
     paramtype: Option<String>,
-    param: Vec<String>,
     url: Option<String>,
     method: Option<String>,
-    headers: Vec<(String, String)>,
     body: Option<String>,
     table: Option<String>,
-    select: Option<String>
+    select: Option<String>,
+    param: Vec<(String,)>, // a macro miatt van tuple ben amugy semmi haszna
+    header: Vec<(String, String)>, // it van, ez miatt van a macro ugy ahogy
 }
 
+#[allow(dead_code)]
 impl RequestBuilder {
     pub fn new() -> Self {
         Self::default()
     }
 
-    pub fn url(mut self, url: &str) -> Self {
-        self.url = Some(url.to_string());
-        self
-    }
+    novenybuilder!(url);
+    novenybuilder!(method);
+    novenybuilder!(body);
+    novenybuilder!(table);
+    novenybuilder!(select);
 
-    pub fn method(mut self, method: &str) -> Self {
-        self.method = Some(method.to_string());
-        self
-    }
 
-    pub fn header(mut self, key: &str, value: &str) -> Self {
-        self.headers.push((key.to_string(), value.to_string()));
-        self
-    }
+    novenybuilder!(param, param);
+    novenybuilder!(header, key, value);
 
-    pub fn body(mut self, body: &str) -> Self {
-        self.body = Some(body.to_string());
-        self
-    }
-
-    pub fn table(mut self, table: &str) -> Self {
-        self.table = Some(table.to_string());
-        self
-    }
-
-    pub fn param(mut self, param: &str) -> Self {
-        self.param.push(param.to_owned());
-        self
-    }
-
-    pub fn select(mut self, select: &str) -> Self {
-        self.select=Some(select.to_owned());
-        self
-    }
+    //pub fn param(mut self, param: &str) -> Self {
+    //    self.param.push(param.to_owned());
+    //    self
+    //}
+    //pub fn header(mut self, key: &str, value: &str) -> Self {
+    //    self.header.push((key.to_string(), value.to_string()));
+    //    self
+    //}
 
     pub fn run_struct(self) -> Result<Vec<noveny>,String> {
         let output = makerequest(self);
@@ -145,7 +131,7 @@ fn makerequest(builder: RequestBuilder) -> Output{
     params.push(format!("select={}", select));
 
     for p in builder.param {
-        let mut splitted = p.split("=");
+        let mut splitted = p.0.split("=");
         params.push("-d".to_string());
         params.push(format!("{}=eq.{}",splitted.next().unwrap(), splitted.next().unwrap()))
     }
