@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="asd.js" defer></script>
     <script src="script.js" defer></script>
+    <script src="packer.js" defer></script>
   </head>
 
   <body>
@@ -49,6 +50,7 @@
         <div style="display: block; margin-top: 30px; width: 980px; height: 810px; margin-left: 180px;">
           <canvas id="c"></canvas>
         </div>
+
         <!-- Adatok popup -->
         <div class="popup_overlay" id="popup_overlay">
           <div class="popup">
@@ -62,6 +64,7 @@
               <p>Mekkora területet szeretne tervezni?</p>
               <input type="text" id="area_input" placeholder="Hossz (méter)">
               <input type="text" id="width_input" placeholder="Szélesség (méter)">
+              <input type="text" id="number_input" placeholder="Mennyi agyas van he">
               <div id="error_message" class="error_message"></div>
               <p>Milyen fajtájú növényeket szeretne ültetni?(válasszon a legörülő listából, többet is kijelölhet)</p>
               <select id="plant_select">
@@ -205,6 +208,8 @@
             </div>
           </div>
         </div>
+      </div>
+      <div id="elrendezo" style="float: right;background-color: #5D4037; width: 200px; margin: 0px;">
       </div>
     </div>
   </body>

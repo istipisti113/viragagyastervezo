@@ -23,10 +23,25 @@ impl novenyrequest {
                     Some(nev) => Some(nev.to_string())
                 }
             }
+
             "id" => {
                 match &self.id {
                     None => None,
                     Some(id) => Some(id.to_string())
+                }
+            }
+
+            "totav" => {
+                match &self.totav {
+                    None => None,
+                    Some(totav) => Some(totav.to_string())
+                }
+            }
+
+            "sortav" => {
+                match &self.sortav {
+                    None => None,
+                    Some(sortav) => Some(sortav.to_string())
                 }
             }
             _ => None

@@ -64,15 +64,15 @@ document.getElementById('close_export_popup').addEventListener('click', function
 });
     
 // Pop-up bezárása az "Elfogadom" gombbal
-document.getElementById('accept_btn').addEventListener('click', function() {
-    document.getElementById('popup_overlay').classList.remove('active');
-    alert('A pop-up tartalma elfogadva!');
-});
+//document.getElementById('accept_btn').addEventListener('click', function() {
+//    document.getElementById('popup_overlay').classList.remove('active');
+//    alert('A pop-up tartalma elfogadva!');
+//});
     
 // Pop-up bezárása a "Mégse" gombbal
-document.getElementById('cancel_btn').addEventListener('click', function() {
-    document.getElementById('popup_overlay').classList.remove('active');
-});
+//document.getElementById('cancel_btn').addEventListener('click', function() {
+//    document.getElementById('popup_overlay').classList.remove('active');
+//});
     
 
 async function handleSelectClick(event) {

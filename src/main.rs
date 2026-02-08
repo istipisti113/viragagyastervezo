@@ -30,6 +30,7 @@ async fn main() {
     let home = warp::path::end().map(|| warp::reply::html(fs::read_to_string("html/index.html").unwrap()));
     let style = warp::path!("style.css").and(warp::fs::file("html/style.css"));
     let script = warp::path!("script.js").and(warp::fs::file("script.js"));
+    let packer = warp::path!("packer.js").and(warp::fs::file("packer.js"));
     let scriptasd = warp::path!("asd.js").and(warp::fs::file("html/asd.js"));
     let background = warp::path!("background").and(warp::fs::file("images/fold.png"));
 
@@ -56,6 +57,7 @@ async fn main() {
 
 
 
+
     //tesztek
     println!("faj id: {}", RequestBuilder::new().table("faj").select("id").run_str().unwrap().join(" "));
     println!("paradicsom: {}", RequestBuilder::new().table("faj").select("neve").param("id=4").run_str().unwrap().join(" "));
@@ -63,7 +65,7 @@ async fn main() {
 
     let routes = home
     .or(style).or(background).or(script).or(scriptasd)
-    .or(novenyek).or(novenynevek).or(query).or(get);
+    .or(novenyek).or(novenynevek).or(query).or(get).or(packer);
     warp::serve(routes).run(([0,0,0,0], port)).await;
 }
 
