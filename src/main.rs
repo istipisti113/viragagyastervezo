@@ -31,6 +31,7 @@ async fn main() {
     let tervezes = warp::path!("tervezes").map(|| warp::reply::html(fs::read_to_string("html/loading.html").unwrap()));
     let style = warp::path!("style.css").and(warp::fs::file("html/style.css"));
     let script = warp::path!("script.js").and(warp::fs::file("script.js"));
+    let drawgarden = warp::path!("drawgarden.js").and(warp::fs::file("drawgarden.js"));
     let packer = warp::path!("packer.js").and(warp::fs::file("packer.js"));
     let visualization = warp::path!("visualization.js").and(warp::fs::file("visualization.js"));
     let scriptasd = warp::path!("asd.js").and(warp::fs::file("html/asd.js"));
@@ -66,7 +67,7 @@ async fn main() {
     println!("fajta nevek: {}", RequestBuilder::new().table("fajta").select("neve").run_str().unwrap().join(" "));
 
     let routes = home
-    .or(style).or(background).or(script).or(scriptasd).or(tervezes)
+    .or(style).or(background).or(script).or(drawgarden).or(scriptasd).or(tervezes)
     .or(novenyek).or(novenynevek).or(query).or(get).or(packer).or(visualization);
     warp::serve(routes).run(([0,0,0,0], port)).await;
 }

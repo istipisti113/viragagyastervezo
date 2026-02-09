@@ -1,96 +1,3 @@
-const plantImageMap = {};
-
-function loadPlantImages() {
-  const plants = [
-    { id: 1, file: "Balatoni Rózsa krumpli.png" },
-    { id: 2, file: "Gogosári paprika.png" },
-    { id: 3, file: "Cékla.png" }
-  ];
-
-  return Promise.all(
-    plants.map(p => {
-      return new Promise(resolve => {
-        const img = new Image();
-        img.src = "../images/" + p.file;
-        img.onload = () => {
-          plantImageMap[p.id] = img;
-          resolve();
-        };
-      });
-    })
-  );
-}
-
-function renderGarden(canvas, packedList, scale = 1) {
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  for (const pack of packedList) {
-    if (!pack.fitted) continue;
-    drawPlantPack(ctx, pack, scale);
-  }
-}
-
-
-function drawPlantPack(ctx, pack, scale) {
-  const img = plantImageMap[pack.noveny_id];
-  if (!img) return;
-
-  const cols = pack.sor;
-  const rows = pack.sorhossz;
-
-  const cellW = pack.width / cols;
-  const cellH = pack.height / rows;
-
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const x = (pack.x + c * cellW) * scale;
-      const y = (pack.y + r * cellH) * scale;
-
-      ctx.drawImage(
-        img,
-        x,
-        y,
-        cellW * scale,
-        cellH * scale
-      );
-    }
-  }
-}
-
-
-
-
-function testRender() {
-  const canvas = document.getElementById("gardenCanvas");
-
-  const rectangles = [
-    { noveny_id: 1, sor: 4, sorhossz: 3, width: 240, height: 180 },
-    { noveny_id: 2, sor: 3, sorhossz: 2, width: 180, height: 120 },
-    { noveny_id: 3, sor: 5, sorhossz: 2, width: 300, height: 120 }
-  ];
-
-  const packer = new RectanglePacker(canvas.width, canvas.height);
-  const packed = packer.packShelfAlgorithm(rectangles);
-
-  renderGarden(canvas, packed, 1);
-}
-
-
-
-
-
-window.addEventListener("load", async () => {
-  await loadPlantImages();
-  testRender();
-});
-
-
-
-
-function loadplants(){
-  fetch("novenyek")
-}
 
 async function loadPage(page, id) {
   return fetch(page)
@@ -151,11 +58,6 @@ canvas.style.height = displayHeight + 'px';
 canvas.width = displayWidth * scale;
 canvas.height = displayHeight * scale;
 
-var ctx = canvas.getContext("2d");
-
-ctx.moveTo(0, 0);
-ctx.lineTo(980*2, 810*2);
-ctx.stroke();
 
 let selectedPlants = [];
 let agyaswidth = 0;
@@ -645,6 +547,10 @@ min-width: 150px;
       final.push(packing.packShelfAlgorithm(agyas))
     }
     console.log(final)
+    //for (var agyas of final){
+    //  await renderGarden(document.getElementById("gardenCanvas"), agyas)
+    //}
+    await renderGarden(document.getElementById("gardenCanvas"), final[0])
 
   });
 
@@ -952,3 +858,4 @@ async function packer(plants){
   console.log("packed", packs)
   return packs
 }
+
