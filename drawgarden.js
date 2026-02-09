@@ -35,9 +35,10 @@ async function renderGarden(canvas, agyas, scale = 1) {
   ctx.rect(0,0,canvas.width, canvas.height);
   ctx.stroke();
 
-  ctx.beginPath();
+  //ctx.beginPath();
   for (var noveny of agyas){
     console.log(noveny.x, noveny.y, noveny.height, noveny.width)
+    ctx.beginPath();
     ctx.lineWidth = "10"
     ctx.fillStyle = "red"
     ctx.rect(
@@ -46,6 +47,22 @@ async function renderGarden(canvas, agyas, scale = 1) {
       noveny.width,
       noveny.height,
     );
+    await ctx.stroke();
+
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.font = "bold 20px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    const label = noveny.neve;
+
+    ctx.fillText(
+      label,
+      noveny.x + noveny.width / 2,
+      noveny.y + noveny.height / 2
+    );
+    ctx.fill();
   }
   ctx.fill();
   //ctx.beginPath();
@@ -59,8 +76,8 @@ async function renderGarden(canvas, agyas, scale = 1) {
 }
 
 function drawPlantPack(ctx, pack, scale) {
- // const img = plantImageMap[pack.noveny_id];
- // if (!img) return;
+  // const img = plantImageMap[pack.noveny_id];
+  // if (!img) return;
 
   const cols = pack.sor;
   const rows = pack.sorhossz;
@@ -83,20 +100,6 @@ function drawPlantPack(ctx, pack, scale) {
   }
 }
 
-function testRender() {
-  const canvas = document.getElementById("gardenCanvas");
-
-  const rectangles = [
-    { noveny_id: 1, sor: 4, sorhossz: 3, width: 240, height: 180 },
-    { noveny_id: 2, sor: 3, sorhossz: 2, width: 180, height: 120 },
-    { noveny_id: 3, sor: 5, sorhossz: 2, width: 300, height: 120 }
-  ];
-
-  const packer = new RectanglePacker(canvas.width, canvas.height);
-  const packed = packer.packShelfAlgorithm(rectangles);
-
-  renderGarden(canvas, packed, 1);
-}
 
 window.addEventListener("load", async () => {
   await loadPlantImages();

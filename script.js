@@ -33,30 +33,22 @@ function hozzaadas() {
     selectedPlants[existingPlantIndex].quantity += selectedQuantity;
   } else {
     // Új növény objektum létrehozása
-      const newPlant = {
-        plantType: selectedPlantValue,
-        variety: selectedFajtaValue,
-        quantity: selectedQuantity,
-        id: 0
-      };
+    const newPlant = {
+      plantType: selectedPlantValue,
+      variety: selectedFajtaValue,
+      quantity: selectedQuantity,
+      id: 0
+    };
 
-      selectedPlants.push(newPlant);
-      console.log("selectedPlants", selectedPlants)
+    selectedPlants.push(newPlant);
+    console.log("selectedPlants", selectedPlants)
 
-      updatePlantList();
+    updatePlantList();
 
-      mennyiInput.value = '';
+    mennyiInput.value = '';
   }
 }
 
-var displayWidth = 980;
-var displayHeight = 810;
-var canvas = document.getElementById("gardenCanvas");
-var scale = 2;
-canvas.style.width = displayWidth + 'px';
-canvas.style.height = displayHeight + 'px';
-canvas.width = displayWidth * scale;
-canvas.height = displayHeight * scale;
 
 
 let selectedPlants = [];
@@ -532,13 +524,31 @@ min-width: 150px;
         }
       }
       if (!found){
+        //ekezet
+        alert("nincs eleg agyas, nem megy halo\na maradek megtervezese")
         console.log("nem jo he")
       }
     }
 
     var final = []
 
-    for (var agyas of agyasok){
+    for (var i=0; i<agyasok.length; i++){
+      var container = document.getElementById("canvascontainer")
+      var newcanvas = document.createElement("canvas")
+      newcanvas.setAttribute("id", "canvas"+i)
+      await document.getElementById("canvascontainer").appendChild(newcanvas)
+
+      var agyas = agyasok[i]
+      var displayWidth = 980;
+      var displayHeight = 810;
+      var canvas = document.getElementById("canvas"+i);
+      var scale = 2;
+      canvas.style.width = displayWidth + 'px';
+      canvas.style.height = displayHeight + 'px';
+      canvas.width = displayWidth * scale;
+      canvas.height = displayHeight * scale;
+
+
       agyas = await packer(agyas)
       console.log(agyas)
       var packing = new RectanglePacker()
@@ -547,10 +557,9 @@ min-width: 150px;
       final.push(packing.packShelfAlgorithm(agyas))
     }
     console.log(final)
-    //for (var agyas of final){
-    //  await renderGarden(document.getElementById("gardenCanvas"), agyas)
-    //}
-    await renderGarden(document.getElementById("gardenCanvas"), final[0])
+    for (var i=0; i<final.length; i++){
+      await renderGarden(document.getElementById("canvas"+i), final[i])
+    }
 
   });
 
@@ -823,7 +832,8 @@ async function packer(plants){
       sorhossz:0,
       noveny_id:0,
       height:0,
-      width:0
+      width:0,
+      neve: "",
     }
 
     //console.log(noveny.quantity)
@@ -846,6 +856,7 @@ async function packer(plants){
     pack.sorhossz = noveny.quantity/oszto
     pack.sor = noveny.quantity/pack.sorhossz
     pack.noveny_id=noveny.id
+    pack.neve = noveny.variety
     //megnezi mennyi a noveny merete, az alapjan kiszamolja a pack meretet
     var sortav = await loadJson("get_by/fajta/id/"+pack.noveny_id+"/sortav");
     sortav = sortav[0]
