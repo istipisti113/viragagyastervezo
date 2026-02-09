@@ -34,9 +34,13 @@ document.getElementById('export_garden').addEventListener('click', function() {
     document.getElementById('export_popup_overlay').classList.add('active');
 });
     
+function overlayclose(){
+    document.getElementById('popup_overlay').classList.remove('active');
+}
+
 // Pop-up bezárása a X gombbal
 document.getElementById('close_popup').addEventListener('click', function() {
-    document.getElementById('popup_overlay').classList.remove('active');
+  overlayclose()
 });
 
 document.getElementById('close_info_popup').addEventListener('click', function() {

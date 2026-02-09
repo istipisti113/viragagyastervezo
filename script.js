@@ -598,6 +598,7 @@ min-width: 150px;
       //location.reload();
     }, 100);
     console.log("tervezes ezerrel", agyaswidth, agyasheight, agyasnum, selectedPlants)
+    overlayclose()
 
     //fix ids and pack the plants
     var result = await idfixer()
