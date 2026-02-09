@@ -15,3 +15,21 @@ macro_rules! novenybuilder {
         }
     } 
 }
+
+
+#[macro_export]
+macro_rules! novenyfield {
+    ($self:ident, $field:ident; $($field_name:ident),+) => {
+        match $field {
+            $(
+                stringify!($field_name) => {
+                    match &$self.$field_name {
+                        None => None,
+                        Some(value) => Some(value.to_string())
+                    }
+                }
+            ),+
+            _ => None
+        }
+    };
+}

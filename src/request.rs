@@ -2,7 +2,7 @@ use std::{env, process::{Command, Output}};
 use serde::{Deserialize, Serialize};
 use serde_json;
 
-use crate::{noveny, novenybuilder, request};
+use crate::{noveny, novenybuilder, novenyfield, request};
 
 #[derive(serde::Deserialize, Debug)]
 struct novenyrequest{
@@ -17,50 +17,15 @@ struct novenyrequest{
 
 impl novenyrequest {
     fn getfield(&self, field: &str)-> Option<String>{
-        match field{
-            "neve" => {
-                match &self.neve {
-                    None => None,
-                    Some(nev) => Some(nev.to_string())
-                }
-            }
-
-            "id" => {
-                match &self.id {
-                    None => None,
-                    Some(id) => Some(id.to_string())
-                }
-            }
-
-            "fajid" => {
-                match &self.fajid {
-                    None => None,
-                    Some(fajid) => Some(fajid.to_string())
-                }
-            }
-
-            "totav" => {
-                match &self.totav {
-                    None => None,
-                    Some(totav) => Some(totav.to_string())
-                }
-            }
-
-            "sortav" => {
-                match &self.sortav {
-                    None => None,
-                    Some(sortav) => Some(sortav.to_string())
-                }
-            }
-
-            "nemszeret" => {
-                match &self.nemszeret {
-                    None => None,
-                    Some(nemszeret) => Some(nemszeret.iter().map(|n|n.to_string()).collect::<Vec<String>>().join(", ").to_string())
-                }
-            }
-            _ => None
+        if field == "nemszeret"{
+           match &self.nemszeret {
+               None => return None,
+               Some(nemszeret) => 
+                    return Some(nemszeret.iter().map(|n|n.to_string()).collect::<Vec<String>>().join(", ").to_string())
+                
+           }
         }
+        novenyfield!(self, field; neve, id, fajid, totav, sortav)
     }
 }
 
