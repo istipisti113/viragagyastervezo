@@ -73,6 +73,8 @@ let agyaswidth = 0;
 let agyasheight = 0;
 let agyasnum = 0;
 
+let agyasok = []
+
 // Tervezés gomb eseménykezelője
 function tervezes() {
   const areaInput = document.getElementById('area_input');
@@ -510,27 +512,50 @@ min-width: 150px;
 
     //fix ids and pack the plants
     var result = await idfixer()
-    var agyasok = []
+    agyasok = []
     for (var i=0; i<agyasnum;i++){
       agyasok.push([])
     }
+
     for (var plant of selectedPlants){
-            console.log("a")
-      var nemszeret = await loadJson("get_by/faj/id/"+plant.id+"/nemszeret")
+      var fajid = await loadJson("get_by/fajta/id/"+plant.id+"/fajid")
+      plant.fajid = fajid[0]
+      var nemszeret = await loadJson("get_by/faj/id/"+fajid+"/nemszeret")
+      plant.nemszeret = nemszeret[0].split(", ")
+      //console.log(plant.fajid, plant.nemszeret)
+
       for (var i=0; i<agyasok.length;i++){
-            console.log("aa")
-        for (var j=0; j<nemszeret.length;j++){
-            console.log("aaaa")
-          if (!agyasok[i].includes((x)=>x.nemszeret.includes(nemszeret[i]))){
-            console.log("fasza")
+        var found = true
+
+        for (var j=0; j<plant.nemszeret.length;j++){
+          if (agyasok[i].find(x=>plant.nemszeret.includes(x.fajid))){
+            found = false
+            //console.log("nem jo")
+            break
           }
         }
+        if (found){
+          agyasok[i].push(plant)
+          break
+        }
+      }
+      if (!found){
+        console.log("nem jo he")
       }
     }
-    var packing = new RectanglePacker()
-    packing.containerWidth = agyaswidth*100
-    packing.containerHeight = agyasheight*100
-    console.log(packing.packShelfAlgorithm(agyasok))
+
+    var final = []
+
+    for (var agyas of agyasok){
+      agyas = await packer(agyas)
+      console.log(agyas)
+      var packing = new RectanglePacker()
+      packing.containerWidth = agyaswidth*100
+      packing.containerHeight = agyasheight*100
+      final.push(packing.packShelfAlgorithm(agyas))
+    }
+    console.log(final)
+
   });
 
   buttonContainer.appendChild(cancelButton);

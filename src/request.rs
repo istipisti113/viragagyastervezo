@@ -12,6 +12,7 @@ struct novenyrequest{
     nemszeret: Option<Vec<i16>>,
     sortav: Option<i16>,
     totav: Option<i16>,
+    fajid: Option<i16>
 }
 
 impl novenyrequest {
@@ -28,6 +29,13 @@ impl novenyrequest {
                 match &self.id {
                     None => None,
                     Some(id) => Some(id.to_string())
+                }
+            }
+
+            "fajid" => {
+                match &self.fajid {
+                    None => None,
+                    Some(fajid) => Some(fajid.to_string())
                 }
             }
 
