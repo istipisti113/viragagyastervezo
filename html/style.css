@@ -22,6 +22,14 @@ body {
     background-blend-mode: multiply;
 }
 
+#gardenCanvas {
+  background-image: url("../images/fold.png");
+  background-size: cover;
+  background-position: center;
+  border: 1px solid #555;
+}
+
+
 /* 3. Fő konténer */
 #container {
     display: flex;
