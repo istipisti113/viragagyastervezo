@@ -1,6 +1,7 @@
 function loadplants(){
   fetch("novenyek")
 }
+
 async function loadPage(page, id) {
   return fetch(page)
     .then(response => response.text())
@@ -19,26 +20,22 @@ function hozzaadas() {
   const fajtaSelect = document.getElementById('fajta_select');
   const mennyiInput = document.getElementById('mennyi');
 
-  // Ellenőrizzük, hogy a kiválasztott növény valid-e
   const selectedPlantValue = plantSelect.value;
   const selectedFajtaValue = fajtaSelect.value;
   const selectedQuantity = parseInt(mennyiInput.value);
 
-  // Validáció - CSAK ha tényleg üresek a mezők (nem alert)
   if (!selectedPlantValue || !selectedFajtaValue || isNaN(selectedQuantity) || selectedQuantity <= 0) {
-    return; // Csak visszatérünk, nem jelenítünk alert-et
+    return;
   }
-  // Ellenőrizzük, hogy van-e már ilyen növény
+
   const existingPlantIndex = selectedPlants.findIndex(plant => 
     plant.plantType === selectedPlantValue && plant.variety === selectedFajtaValue
   );
 
   if (existingPlantIndex !== -1) {
-    // Ha már van ilyen növény, akkor növeljük a mennyiségét
     selectedPlants[existingPlantIndex].quantity += selectedQuantity;
   } else {
     // Új növény objektum létrehozása
-    //console.log(selectedPlantValue, selectedFajtaValue)
       const newPlant = {
         plantType: selectedPlantValue,
         variety: selectedFajtaValue,
@@ -46,14 +43,11 @@ function hozzaadas() {
         id: 0
       };
 
-      // Hozzáadás a tömbhöz
       selectedPlants.push(newPlant);
       console.log("selectedPlants", selectedPlants)
 
-      // Frissítjük a megjelenítést
       updatePlantList();
 
-      // Mezők ürítése
       mennyiInput.value = '';
   }
 }
