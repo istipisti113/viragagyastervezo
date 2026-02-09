@@ -501,7 +501,7 @@ font-weight: bold;
 min-width: 150px;
 `;
 
-  finishButton.addEventListener('click', function() {
+  finishButton.addEventListener('click',async function() {
     // 1. Azonnal eltávolítjuk a tervezési popup-ot
     planningPopup.remove();
 
@@ -515,15 +515,28 @@ min-width: 150px;
     console.log("tervezes ezerrel", agyaswidth, agyasheight, agyasnum, selectedPlants)
 
     //fix ids and pack the plants
-    idfixer()
-      .then(result=> packer())
-      .then(packs=> {
-        console.log(packs)
-        var packing = new RectanglePacker()
-        packing.containerWidth = agyaswidth*100
-        packing.containerHeight = agyasheight*100
-        console.log(packing.packShelfAlgorithm(packs))
-      })
+    var result = await idfixer()
+    var agyasok = []
+    for (var i=0; i<agyasnum;i++){
+      agyasok.push([])
+    }
+    for (var plant of selectedPlants){
+            console.log("a")
+      var nemszeret = await loadJson("get_by/faj/id/"+plant.id+"/nemszeret")
+      for (var i=0; i<agyasok.length;i++){
+            console.log("aa")
+        for (var j=0; j<nemszeret.length;j++){
+            console.log("aaaa")
+          if (!agyasok[i].includes((x)=>x.nemszeret.includes(nemszeret[i]))){
+            console.log("fasza")
+          }
+        }
+      }
+    }
+    var packing = new RectanglePacker()
+    packing.containerWidth = agyaswidth*100
+    packing.containerHeight = agyasheight*100
+    console.log(packing.packShelfAlgorithm(agyasok))
   });
 
   buttonContainer.appendChild(cancelButton);
@@ -784,10 +797,10 @@ async function idfixer(){
   )
 }
 
-async function packer(){
+async function packer(plants){
   var packs = []
   //vegigmegy a listan
-  for (const noveny of selectedPlants){
+  for (const noveny of plants){
     //console.log("noveny ",noveny)
     var pack = {
       id:0,

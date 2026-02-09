@@ -44,6 +44,13 @@ impl novenyrequest {
                     Some(sortav) => Some(sortav.to_string())
                 }
             }
+
+            "nemszeret" => {
+                match &self.nemszeret {
+                    None => None,
+                    Some(nemszeret) => Some(nemszeret.iter().map(|n|n.to_string()).collect::<Vec<String>>().join(", ").to_string())
+                }
+            }
             _ => None
         }
     }
