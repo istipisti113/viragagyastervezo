@@ -19,21 +19,7 @@ document.getElementById('open_about_popup').addEventListener('click', function()
     document.getElementById('about_popup_overlay').classList.add('active');
 });
 
-// Kert mentése popup megnyitása
-document.getElementById('save_garden').addEventListener('click', function() {
-    document.getElementById('save_popup_overlay').classList.add('active');
-});
 
-// Kert betöltése popup megnyitása
-document.getElementById('load_garden').addEventListener('click', function() {
-    document.getElementById('load_popup_overlay').classList.add('active');
-});
-
-// Exportálás popup megnyitása
-document.getElementById('export_garden').addEventListener('click', function() {
-    document.getElementById('export_popup_overlay').classList.add('active');
-});
-    
 function overlayclose(){
     document.getElementById('popup_overlay').classList.remove('active');
 }
@@ -52,20 +38,22 @@ document.getElementById('close_about_popup').addEventListener('click', function(
     document.getElementById('about_popup_overlay').classList.remove('active');
 });
 
-// Kert mentése popup bezárása
-document.getElementById('close_save_popup').addEventListener('click', function() {
-    document.getElementById('save_popup_overlay').classList.remove('active');
+
+// Rólunk popup bezárása
+document.getElementById('close_about_popup').addEventListener('click', function() {
+    document.getElementById('about_popup_overlay').classList.remove('active');
 });
 
-// Kert betöltése popup bezárása
-document.getElementById('close_load_popup').addEventListener('click', function() {
-    document.getElementById('load_popup_overlay').classList.remove('active');
+
+// Új növény hozzáadása popup kezelése
+document.getElementById('open_add_custom_plant').addEventListener('click', function() {
+    document.getElementById('add_plant_popup_overlay').classList.add('active');
 });
 
-// Exportálás popup bezárása
-document.getElementById('close_export_popup').addEventListener('click', function() {
-    document.getElementById('export_popup_overlay').classList.remove('active');
+document.getElementById('close_add_plant_popup').addEventListener('click', function() {
+    document.getElementById('add_plant_popup_overlay').classList.remove('active');
 });
+
     
 // Pop-up bezárása az "Elfogadom" gombbal
 //document.getElementById('accept_btn').addEventListener('click', function() {
@@ -102,21 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Adjuk hozzá az aktív osztályt a kattintott gombhoz
             this.classList.add('active');
         });
-    });
-    
-    // Kert mentése gomb funkcionalitása
-    document.getElementById('save_garden').addEventListener('click', function(e) {
-        e.stopPropagation(); // Megakadályozza, hogy az aktív osztály beállítása előtt bezáródjon
-    });
-    
-    // Kert betöltése gomb funkcionalitása
-    document.getElementById('load_garden').addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-    
-    // Exportálás gomb funkcionalitása
-    document.getElementById('export_garden').addEventListener('click', function(e) {
-        e.stopPropagation();
     });
 });
 

@@ -31,38 +31,37 @@ async function renderGarden(canvas, agyas, scale = 1) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   ctx.beginPath();
-  ctx.lineWidth="5"
+  ctx.lineWidth="15";
   ctx.rect(0,0,canvas.width, canvas.height);
+  ctx.strokeStyle = "#5d4037";
   ctx.stroke();
 
   //ctx.beginPath();
-  for (var noveny of agyas){
-    console.log(noveny.x, noveny.y, noveny.height, noveny.width)
+for (var noveny of agyas) {
     ctx.beginPath();
-    ctx.lineWidth = "10"
-    ctx.fillStyle = "red"
-    ctx.rect(
-      noveny.x+1,
-      noveny.y+1,
-      noveny.width,
-      noveny.height,
-    );
-    await ctx.stroke();
+    ctx.fillStyle = "rgba(76, 175, 80, 0.4)"; 
+    ctx.rect(noveny.x, noveny.y, noveny.width, noveny.height);
+    ctx.fill();
 
     ctx.beginPath();
+    ctx.strokeStyle = "#5d4037";
+    ctx.lineWidth = 5;
+    ctx.rect(noveny.x, noveny.y, noveny.width, noveny.height);
+    ctx.stroke();
+
+    ctx.save();
+    ctx.shadowColor = "black";
+    ctx.shadowBlur = 6;
     ctx.fillStyle = "white";
     ctx.font = "bold 20px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-
-    const label = noveny.neve;
-
     ctx.fillText(
-      label,
+      noveny.neve.toUpperCase(),
       noveny.x + noveny.width / 2,
       noveny.y + noveny.height / 2
     );
-    ctx.fill();
+    ctx.restore();
   }
   ctx.fill();
   //ctx.beginPath();

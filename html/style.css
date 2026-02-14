@@ -26,7 +26,49 @@ body {
   background-image: url("../images/fold.png");
   background-size: cover;
   background-position: center;
-  border: 1px solid #555;
+  border: 12px solid #5d4037;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  border-radius: 4px;
+  display: block;
+  margin: 20px auto;
+}
+
+/* Új popup beviteli mezők stílusa */
+.input-group {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #229954;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.action-btn:hover {
+    background-color: #229954;
 }
 
 
@@ -79,7 +121,7 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px black;
     width: 100%;
-    text-align: center;
+    text-align: left;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -256,12 +298,12 @@ p {
 }
 
 .primary_btn {
-    background-color: #2ecc71;
+    background-color: #2e7d32;
     color: white;
 }
 
 .primary_btn:hover {
-    background-color: #27ae60;
+    background-color: #2e7d32;
 }
 
 .secondary_btn {

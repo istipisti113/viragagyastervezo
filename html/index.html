@@ -21,21 +21,16 @@
           <button class="sidepanel-btn trigger_btn" id="open_popup">
             <i class="fas fa-database"></i> Adatok
           </button>
+          <button class="sidepanel-btn trigger_btn" id="open_add_custom_plant">
+            <i class="fas fa-plus-circle"></i> Növény hozzáadása
+          </button>
           <button class="sidepanel-btn trigger_btn" id="open_info_popup">
             <i class="fas fa-info-circle"></i> Info
           </button>
           <button class="sidepanel-btn trigger_btn" id="open_about_popup">
             <i class="fas fa-users"></i> Rólunk
           </button>
-          <button class="sidepanel-btn trigger_btn" id="save_garden">
-            <i class="fas fa-save"></i> Kert mentése
-          </button>
-          <button class="sidepanel-btn trigger_btn" id="load_garden">
-            <i class="fas fa-folder-open"></i> Kert betöltése
-          </button>
-          <button class="sidepanel-btn trigger_btn" id="export_garden">
-            <i class="fas fa-download"></i> Exportálás
-          </button>
+  
         </div>
 
         <div class="sidepanel-footer">
@@ -90,6 +85,36 @@
           </div>
         </div>
 
+        <!-- Növény hozzáadása popup -->
+        <div class="popup_overlay" id="add_plant_popup_overlay">
+          <div class="popup">
+              <button class="close_btn" id="close_add_plant_popup">&times;</button>
+              <div class="popup_header">
+                  <h2>Új növény rögzítése</h2>
+              </div>
+              <div class="popup_content">
+                  <div class="input-group">
+                      <label>Növény fajtája:</label>
+                      <select id="new_plant_type" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                      </select>
+                  </div>
+                  <div class="input-group">
+                      <label>Növény neve:</label>
+                      <input type="text" id="new_plant_name" placeholder="pl. Vesebab">
+                  </div>
+                  <div class="input-group">
+                      <label>Sortávolság (cm):</label>
+                      <input type="number" id="new_plant_row" placeholder="40">
+                  </div>
+                  <div class="input-group">
+                      <label>Tőtávolság (cm):</label>
+                      <input type="number" id="new_plant_col" placeholder="30">
+                  </div>
+                  <button class="action-btn" id="save_custom_plant">Mentés a listába</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Info popup -->
         <div class="popup_overlay" id="info_popup_overlay">
           <div class="popup">
@@ -140,71 +165,16 @@
             </div>
 
             <div class="popup_content">
-              <p>Szabó István</p>
-              <p>Szabó Botond</p>
-              <p>Bognár Máté Zsolt</p>
+              <p>Szabó István
+                <br>
+                Szabó Botond
+                <br>
+                Bognár Máté Zsolt
+              </p>
+
               <div style="text-align: center; margin-top: 30px;">
                 <i class="fas fa-seedling" style="font-size: 3rem; color: #8D6E63;"></i>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kert mentése popup -->
-        <div class="popup_overlay" id="save_popup_overlay">
-          <div class="popup">
-            <button class="close_btn" id="close_save_popup">&times;</button>
-
-            <div class="popup_header">
-              <h2>Kert mentése</h2>
-            </div>
-
-            <div class="popup_content">
-              <p>Add meg a kert nevet:</p>
-              <input type="text" id="garden_name" placeholder="Kert neve">
-              <div id="save_error_message" class="error_message"></div>
-              <p>A kert terve el lesz mentve, hogy később visszatérhess hozzá.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kert betöltése popup -->
-        <div class="popup_overlay" id="load_popup_overlay">
-          <div class="popup">
-            <button class="close_btn" id="close_load_popup">&times;</button>
-
-            <div class="popup_header">
-              <h2>Kert betöltése</h2>
-            </div>
-
-            <div class="popup_content">
-              <p>Válassz egy korábban mentett kertet:</p>
-              <select id="saved_gardens">
-                <option value="">-- Válassz egy kertet --</option>
-              </select>
-              <div id="load_error_message" class="error_message"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Exportálás popup -->
-        <div class="popup_overlay" id="export_popup_overlay">
-          <div class="popup">
-            <button class="close_btn" id="close_export_popup">&times;</button>
-
-            <div class="popup_header">
-              <h2>Exportálás</h2>
-            </div>
-
-            <div class="popup_content">
-              <p>Válaszd ki az exportálás formátumát:</p>
-              <select id="export_format">
-                <option value="pdf">PDF dokumentum</option>
-                <option value="image">Kép (PNG)</option>
-                <option value="text">Szöveges formátum</option>
-              </select>
-              <div id="export_error_message" class="error_message"></div>
-              <p>A kert terve exportálva lesz a választott formátumban.</p>
             </div>
           </div>
         </div>
